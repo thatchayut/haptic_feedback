@@ -8,10 +8,11 @@ using namespace std;
 int main(void)
 {
     //check if the wiring pi is completely set up
-    if (wiringPiSetup() == -1)
-    {
-        return 1;
-    }
+    // if (wiringPiSetup() == -1)
+    // {
+    //     return 1;
+    // }
+    wiringPiSetup();
     cout << "wiring Pi is completely set up...";
     delay(200);
     //define pin mode
@@ -21,7 +22,7 @@ int main(void)
     //turn on the light 
     while(true)
     {
-        digitalWrite(0,HIGH);
+        digitalWrite(pin_out_GPIO0,HIGH);
     }
 
     return 0;
