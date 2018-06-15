@@ -3,7 +3,7 @@
 // #include</mnt/c/Users/totay/Desktop/LinuxEnvironment/wiringPi-8d188fa/wiringPi/wiringPi.h> //for WINDOWS
 #include</home/raspberrypi3/Desktop/wiringPi-8d188fa/wiringPi/wiringPi.h> //for LINUX (Ubuntu)
 
-#define pin_out_GPIO0 0
+//#define pin_out_GPIO0 0
 
 using namespace std;
 
@@ -18,15 +18,15 @@ int main(void)
     wiringPiSetup();
     cout << "wiring Pi is completely set up...";
     delay(200);
-    //define pin mode
-    pinMode(pin_out_GPIO0,OUTPUT); //set GPIO 0 (pin11) as an output
-    cout << "pins are completely setup...";
-    delay(200);
+    define pin mode
+    //pinMode(pin_out_GPIO0,OUTPUT); //set GPIO 0 (pin11) as an output
+    //cout << "pins are completely setup...";
+    //delay(200);
     //turn on the light 
-    while(true)
-    {
-        digitalWrite(pin_out_GPIO0,HIGH);
-    }
+    //while(true)
+    //{
+    //    digitalWrite(pin_out_GPIO0,HIGH);
+    //}
 
-    return 0;
+    //return 0;
 }
