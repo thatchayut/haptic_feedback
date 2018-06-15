@@ -1,5 +1,6 @@
 #include <iostream>
-#include <wiringPi.h>
+// #include <wiringPi.h>
+#include</mnt/c/Users/totay/Desktop/LinuxEnvironment/wiringPi-8d188fa/wiringPi/wiringPi.h>
 
 #define pin_out_GPIO0 0
 
@@ -12,6 +13,7 @@ int main(void)
     // {
     //     return 1;
     // }
+    cout << "testttttttttttttttttttttttt";
     wiringPiSetup();
     cout << "wiring Pi is completely set up...";
     delay(200);
