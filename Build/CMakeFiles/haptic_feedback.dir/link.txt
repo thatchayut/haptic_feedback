@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/haptic_feedback.dir/haptic_feedback.cpp.o  -o haptic_feedback -rdynamic -lwiringPi 

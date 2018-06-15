@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/totay/Desktop/LinuxEnvironment/haptic_feedback/haptic_feedback.cpp
+iostream
+-
+wiringPi.h
+-
+
