@@ -1,7 +1,7 @@
 #include <iostream>
 // #include <wiringPi.h>
 // #include</mnt/c/Users/totay/Desktop/LinuxEnvironment/wiringPi-8d188fa/wiringPi/wiringPi.h> //for WINDOWS
-#include</home/raspberrypi3/Desktop/wiringPi-8d188fa/wiringPi> //for LINUX
+#include</home/raspberrypi3/Desktop/wiringPi-8d188fa/wiringPi> //for LINUX (Ubuntu)
 
 #define pin_out_GPIO0 0
 
