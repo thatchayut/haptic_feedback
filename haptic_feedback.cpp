@@ -4,7 +4,7 @@
 //#include</home/raspberrypi3/Desktop/wiringPi-8d188fa/wiringPi/wiringPi.h> //for LINUX (Ubuntu)
 #include <wiringPi.h>
 
-#define pin_out_GPIO0 0
+#define pin_out_GPIO0 0 //on board = GPIO17
 
 using namespace std;
 
