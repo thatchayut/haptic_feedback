@@ -20,14 +20,14 @@ int main(void)
     cout << "\nwiring Pi is completely set up...";
     delay(200);
     //define pin mode
-    pinMode(pin_out_GPIO0,OUTPUT); //set GPIO 0 (pin11) as an output
+    pinMode (pin_out_GPIO0, OUTPUT); //set GPIO 0 (pin11) as an output
     cout << "\npins are completely setup...";
     delay(200);
     //turn on the light 
     while(true)
     {
-	cout << "\nLoopn is accessible";
-        digitalWrite(pin_out_GPIO0,HIGH);
+        cout << "\nLoopn is accessible";
+        digitalWrite (pin_out_GPIO0, HIGH);
     }
     
     cout << "\nProgram is terminated";
