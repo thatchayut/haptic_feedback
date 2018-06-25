@@ -4,7 +4,8 @@
 //#include</home/raspberrypi3/Desktop/wiringPi-8d188fa/wiringPi/wiringPi.h> //for LINUX (Ubuntu)
 #include <wiringPi.h>
 
-#define pin_out_GPIO0 0 //physical pin = 11
+#define pin_out_GPIO_7 7 //physical pin = 7
+#define pin_out_GPIO_23 21 //physical pin = 33
 
 using namespace std;
 
@@ -16,17 +17,20 @@ int main(void)
     cout << "\nwiring Pi is completely set up...";
     delay(200);
     //define pin mode
-    pinMode(pin_out_GPIO0, OUTPUT); //set GPIO 21 (pin29) as an output
+    pinMode(pin_out_GPIO_7, OUTPUT); 
+    pinMode(pin_out_GPIO_23, OUTPUT);
     cout << "\npins are completely setup...";
     delay(200);
     //turn on the light 
     while(true)
     {
         cout << "\nLoop is accessible";
-        digitalWrite(pin_out_GPIO0, HIGH);
-        delay(200);
-        digitalWrite(pin_out_GPIO0, LOW);
-        delay(200);
+        digitalWrite(pin_out_GPIO_7, LOW);
+      //  digitalWrite(pin_out_GPIO_23, HIGH);
+        delay(1000);
+	digitalWrite(pin_out_GPIO_7, HIGH);
+	//digitalWrite(pin_out_GPIO_23, LOW);
+	delay(1000);
     }
     
     cout << "\nProgram is terminated";
