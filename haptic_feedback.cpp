@@ -26,10 +26,10 @@ int main(void)
     {
         cout << "\nLoop is accessible";
         digitalWrite(pin_out_GPIO_7, LOW);
-        digitalWrite(pin_out_GPIO_23, HIGH);
+      //  digitalWrite(pin_out_GPIO_23, HIGH);
         delay(1000);
 	digitalWrite(pin_out_GPIO_7, HIGH);
-	digitalWrite(pin_out_GPIO_23, LOW);
+	//digitalWrite(pin_out_GPIO_23, LOW);
 	delay(1000);
     }
     
