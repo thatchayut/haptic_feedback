@@ -5,6 +5,7 @@
 #include <wiringPi.h>
 
 #define pin_out_GPIO_7 7 //physical pin = 7
+#define pin_out_PWM 1 //physical pin = 12
 
 using namespace std;
 
@@ -16,7 +17,8 @@ int main(void)
     delay(200);
 
     //define pin mode
-    pinMode(pin_out_GPIO_7, OUTPUT); 
+    pinMode(pin_out_GPIO_7, OUTPUT);
+    pinMode(pin_out_PWM, PWM_OUTPUT);
     cout << "\npins are completely setup...";
     delay(200);
 
@@ -29,11 +31,14 @@ int main(void)
         // delay(1000);
         // digitalWrite(pin_out_GPIO_7, HIGH);
         // delay(1000);
-        for (int vibration_level = 0; vibartion_level < 255; vibartion_level++)
-        {
-            analogWrite(pin_out_GPIO_7, vibration_level)
-        }
-        digitalWrite(pin_out_GPIO_7, HIGH);
+       // for (int vibration_level = 0; vibration_level < 1023; vibration_level++)
+        //{
+           pwmWrite(pin_out_PWM, 300); //THIS VALUE (700) IS WORKED!!!!
+	 //cout << vibration_level;
+	 //pwmWrite(pin_out_PWM, vibration_level);
+	 //delay(500);
+       // }
+       // pwmWrite(pin_out_PWM, 1023);
         delay(2000);
     }
     
