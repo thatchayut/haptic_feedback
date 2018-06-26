@@ -42,12 +42,13 @@ void testDecreaseVibrationLevel()
 			pwmWrite(pin_out_PWM, vibration_level);
 			delay(5);
 		}
+	pwmWrite(pin_out_PWM, 0);
 	delay(2000); 
 }
 
 void testIncreaseVibrationLevel()
 {
-	for (int vibration_level = 100; vibration_level >= 1023; vibration_level --)
+	for (int vibration_level = 100; vibration_level <= 1023; vibration_level ++)
 		{
             //range PWM : 0-1023 
 	        //preferred range of vibration level : 100-1023
@@ -55,6 +56,7 @@ void testIncreaseVibrationLevel()
 			pwmWrite(pin_out_PWM, vibration_level);
 			delay(5);
 		}
+	pwmWrite(pin_out_PWM, 0);
 	delay(2000); 
 }
 
@@ -67,7 +69,8 @@ int main(void)
     while(true)
     {
         cout << "\nLoop is accessible\n";
-	    testDecreaseVibrationLevel();
+	    //testDecreaseVibrationLevel();
+	    testIncreaseVibrationLevel();
     }
     
     return 0;
