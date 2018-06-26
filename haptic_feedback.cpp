@@ -24,7 +24,7 @@ void initializePins()
 	delay(1000);
 }
 
-void testDecreasionVibrationLevel()
+void testDecreaseVibrationLevel()
 {
 	for (int vibration_level = 1023; vibration_level >= 100; vibration_level --)
 		{
@@ -44,7 +44,7 @@ int main(void)
     while(true)
     {
         cout << "\nLoop is accessible\n";
-	testDecreasionVibrationLevel();
+	testDecreaseVibrationLevel();
         // digitalWrite(pin_out_GPIO_7, LOW); //L298N module is active LOW
         // delay(1000);
         // digitalWrite(pin_out_GPIO_7, HIGH);
