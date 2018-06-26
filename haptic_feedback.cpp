@@ -11,7 +11,6 @@ using namespace std;
 int main(void)
 {
     //check if the wiring pi is completely set up
-    cout << "testttttttttttttttttttttttt";
     wiringPiSetup();
     cout << "\nwiring Pi is completely set up...";
     delay(200);
@@ -21,14 +20,21 @@ int main(void)
     cout << "\npins are completely setup...";
     delay(200);
 
-    //turn on the light 
+    //test vibration motor
+
     while(true)
     {
         cout << "\nLoop is accessible";
-        digitalWrite(pin_out_GPIO_7, LOW); //L298N module is active LOW
-        delay(1000);
-	digitalWrite(pin_out_GPIO_7, HIGH);
-	delay(1000);
+        // digitalWrite(pin_out_GPIO_7, LOW); //L298N module is active LOW
+        // delay(1000);
+        // digitalWrite(pin_out_GPIO_7, HIGH);
+        // delay(1000);
+        for (int vibration_level = 0; vibartion_level < 255; vibartion_level++)
+        {
+            analogWrite(pin_out_GPIO_7, vibration_level)
+        }
+        digitalWrite(pin_out_GPIO_7, HIGH);
+        delay(2000);
     }
     
     cout << "\nProgram is terminated";
