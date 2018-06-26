@@ -24,10 +24,33 @@ void initializePins()
 	delay(1000);
 }
 
+void testDigitalWrite()
+{
+    digitalWrite(pin_out_GPIO_7, LOW); //L298N module is active LOW
+    delay(1000);
+    digitalWrite(pin_out_GPIO_7, HIGH);
+    delay(1000);
+}
+
 void testDecreaseVibrationLevel()
 {
 	for (int vibration_level = 1023; vibration_level >= 100; vibration_level --)
 		{
+            //range PWM : 0-1023 
+	        //preferred range of vibration level : 100-1023
+			cout << vibration_level << endl;
+			pwmWrite(pin_out_PWM, vibration_level);
+			delay(5);
+		}
+	delay(2000); 
+}
+
+void testIncreaseVibrationLevel()
+{
+	for (int vibration_level = 100; vibration_level >= 1023; vibration_level --)
+		{
+            //range PWM : 0-1023 
+	        //preferred range of vibration level : 100-1023
 			cout << vibration_level << endl;
 			pwmWrite(pin_out_PWM, vibration_level);
 			delay(5);
@@ -44,22 +67,8 @@ int main(void)
     while(true)
     {
         cout << "\nLoop is accessible\n";
-	testDecreaseVibrationLevel();
-        // digitalWrite(pin_out_GPIO_7, LOW); //L298N module is active LOW
-        // delay(1000);
-        // digitalWrite(pin_out_GPIO_7, HIGH);
-        // delay(1000);
-	//range PWM : 0-1023 
-	//preferred range of vibration level : 100-1023
-       //for (int vibration_level = 1023; vibration_level >= 100; vibration_level --)
-        //{
-	 //cout << vibration_level << endl;
-	 //pwmWrite(pin_out_PWM, vibration_level);
-	 //delay(10);
-        //}
-        //delay(2000);
+	    testDecreaseVibrationLevel();
     }
     
-    cout << "\nProgram is terminated";
     return 0;
 }
