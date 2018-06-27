@@ -48,7 +48,7 @@ def main():
 
     while(True):
         print('Loop is accessible...')
-	    print('')
+	print('')
        # vibration_motor_1.ChangeDutyCycle(100)
        # vibration_motor_1.ChangeDutyCycle(90)
        # time.sleep(1)
