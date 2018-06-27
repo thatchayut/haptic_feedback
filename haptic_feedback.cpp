@@ -69,8 +69,8 @@ int main(void)
     while(true)
     {
         cout << "\nLoop is accessible\n";
-	    //testDecreaseVibrationLevel();
-	    testIncreaseVibrationLevel();
+	    testDecreaseVibrationLevel();
+	    //testIncreaseVibrationLevel();
     }
     
     return 0;
