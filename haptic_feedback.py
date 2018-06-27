@@ -7,6 +7,10 @@ import socket
 pin_out_BCM_4 = 7 # physical pin = 7
 pin_out_PWM = 18 # BCM18 physical pin = 12
 
+# define host and port number
+host = '' # all available interfaces
+port = 54345 # arbitrary port
+
 
 def initializePins():
     GPIO.setwarnings(False)
@@ -46,27 +50,25 @@ def maxVibration(vibration_motor):
     vibration_motor.ChangeDutyCycle(100)
 
 def testVibrationLevel(vibration_motor):
-    while(True):
-        print('Loop is accessible...')
-        print('')
-        minVibration(vibration_motor)
-        time.sleep(2)
-        medVibration(vibration_motor)
-        time.sleep(2)
-        maxVibration(vibration_motor)
-        time.sleep(2)
+    print('Loop is accessible...')
+    print('')
+    minVibration(vibration_motor)
+    time.sleep(2)
+    medVibration(vibration_motor)
+    time.sleep(2)
+    maxVibration(vibration_motor)
+    time.sleep(2)
 
 def testCommandViaWIFI(data, addr, vibration_motor):
-    while(True):
-        print('Loop is accessible...')
-        print('')
-        print('Received data: ')
-        print(data)
-        print('')      
-        if(data == "on"):
-            maxVibration(vibration_motor)
-        elif(data == "off"):
-            noVibration(vibration_motor)    
+    print('Loop is accessible...')
+    print('')
+    print('Received data: ')
+    print(data)
+    print('')      
+    if(data == "on"):
+        maxVibration(vibration_motor)
+    elif(data == "off"):
+        noVibration(vibration_motor)    
 
 
 def main():
@@ -74,16 +76,26 @@ def main():
 
     #socket section
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind(('', 54345))
-    data, addr = sock.recvfrom(1024)
-
-    # setup PWM
-    vibration_motor_1 = GPIO.PWM(pin_out_PWM, 260) #initialize with freq. 260 Hz (Near maximum)
-    vibration_motor_1.start(0) #start vibration with 0% duty cycle (NO VIBRATION)
+    sock.bind((host, port)) # host and port number are defined above
+    sock.listen(1)
+    conn, addr = sock.accept()
+    print('Connection established...')
+    print('')
+    print('Connected by : ', addr)
+    print('')
     time.sleep(2)
 
-    testVibrationLevel(vibration_motor_1)
-    #testCommandViaWIFI(data, addr, vibration_motor1)
+    # setup PWM
+    vibration_motor_1 = GPIO.PWM(pin_out_PWM, 260) # initialize with freq. 260 Hz (Near maximum)
+    vibration_motor_1.start(0) # start vibration with 0% duty cycle (NO VIBRATION)
+    print('Motor is comletely setup...')
+    print('')
+    time.sleep(2)
+
+    while(True):
+        data = conn.recv(1024)
+        #testVibrationLevel(vibration_motor_1)
+        testCommandViaWIFI(data, addr, vibration_motor1)
 
     #clean up when program is end
     vibration_motor_1.stop()
