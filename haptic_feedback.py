@@ -76,14 +76,7 @@ def main():
 
     #socket section
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind((host, port)) # host and port number are defined above
-    sock.listen(1)
-    conn, addr = sock.accept()
-    print('Connection established...')
-    print('')
-    print('Connected by : ', addr)
-    print('')
-    time.sleep(2)
+    sock.bind(('', 54345)) # host and port number are defined above
 
     # setup PWM
     vibration_motor_1 = GPIO.PWM(pin_out_PWM, 260) # initialize with freq. 260 Hz (Near maximum)
@@ -93,7 +86,7 @@ def main():
     time.sleep(2)
 
     while(True):
-        data = conn.recv(1024)
+        data, addr = sock.recvfrom(1024)
         #testVibrationLevel(vibration_motor_1)
         testCommandViaWIFI(data, addr, vibration_motor1)
 
