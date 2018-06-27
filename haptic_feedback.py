@@ -60,7 +60,9 @@ def testCommandViaWIFI(data, addr, vibration_motor):
     while(True):
         print('Loop is accessible...')
         print('')
-
+        print('Received data: ')
+        print(data)
+        print('')      
         if(data == "on"):
             maxVibration(vibration_motor)
         elif(data == "off"):
