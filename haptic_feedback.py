@@ -85,16 +85,6 @@ def main():
     testVibrationLevel(vibration_motor_1)
     #testCommandViaWIFI(data, addr, vibration_motor1)
 
-    # while(True):
-    #     print('Loop is accessible...')
-	#     print('')
-    #     minVibration(vibration_motor_1)
-    #     time.sleep(2)
-    #     medVibration(vibration_motor_1)
-    #     time.sleep(2)
-    #     maxVibration(vibration_motor_1)
-    #     time.sleep(2)
-        
     #clean up when program is end
     vibration_motor_1.stop()
     GPIO.cleanup()
