@@ -19,6 +19,7 @@ def initializePins():
     GPIO.setmode(GPIO.BCM)  # using BCM numbering
     GPIO.setup(pin_out_BCM_4, GPIO.OUT)
     GPIO.setup(pin_out_PWM, GPIO.OUT)
+    print('')
     print('Pins are completely setup...')
     print('')
 
@@ -72,7 +73,20 @@ def testCommandViaWIFI(data, addr, vibration_motor):
     if(data == "on"):
         maxVibration(vibration_motor)
     elif(data == "off"):
-        noVibration(vibration_motor)    
+        noVibration(vibration_motor)
+
+def commandVibrationViaWIFI(data, addr, vibration_motor):
+    print('Loop is accessible...')
+    print('')
+    print('Received data: ')
+    print(data)
+    print('')      
+    if(data == "min"):
+        minVibration(vibration_motor)
+    elif(data == "med"):
+        medVibration(vibration_motor)    
+    elif(data == "max"):
+        maxVibration(vibration_motor)
 
 
 def main():
@@ -88,11 +102,10 @@ def main():
     #socket section
     print('Establish connection...')
     print('')
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # use TCP protocol 
     sock.bind((host, port)) # host and port number are defined above
     sock.listen(backlog)
 
-    #try:
     print('Wating for connection...')
     print('')
     conn, addr = sock.accept()
@@ -100,16 +113,13 @@ def main():
     print('')
 
     while(True):
-        # print('Loop is accessible...')
-        # print('')
         data = conn.recv(size)
         print(data)
         print('')
         #testVibrationLevel(vibration_motor_1)
-        # if data:
-        testCommandViaWIFI(data, addr, vibration_motor_1)
+        #testCommandViaWIFI(data, addr, vibration_motor_1)
+        commandVibrationViaWIFI(data, addr, vibration_motor_1)
                 
-    #except:
     print('closing socket...')
     print('')
 
