@@ -92,30 +92,32 @@ def main():
     sock.bind((host, port)) # host and port number are defined above
     sock.listen(backlog)
 
-    try:
-        print('Wating for connection...')
-        print('')
-        conn, addr = sock.accept()
-        print('Connected by : ', addr)
-        print('')
+    #try:
+    print('Wating for connection...')
+    print('')
+    conn, addr = sock.accept()
+    print('Connected by : ', addr)
+    print('')
 
-        while(True):
-            # print('Loop is accessible...')
-            # print('')
-            data = conn.recv(size)
-            #testVibrationLevel(vibration_motor_1)
-            if data:
-                testCommandViaWIFI(data, addr, vibration_motor1)
+    while(True):
+        # print('Loop is accessible...')
+        # print('')
+        data = conn.recv(size)
+        print(data)
+        print('')
+        #testVibrationLevel(vibration_motor_1)
+        # if data:
+        testCommandViaWIFI(data, addr, vibration_motor1)
                 
-    except:
-        print('closing socket...')
-        print('')
+    #except:
+    print('closing socket...')
+    print('')
 
-        #clean up when program is end
-        conn.close()
-        socket.close()
-        vibration_motor_1.stop()
-        GPIO.cleanup()
+    #clean up when program is end
+    conn.close()
+    socket.close()
+    vibration_motor_1.stop()
+    GPIO.cleanup()
     
 if __name__ == '__main__':
     main()
