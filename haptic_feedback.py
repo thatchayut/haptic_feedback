@@ -8,8 +8,10 @@ pin_out_BCM_4 = 7 # physical pin = 7
 pin_out_PWM = 18 # BCM18 physical pin = 12
 
 # define host and port number
-host = '' # all available interfaces
+host = "10.232.160.40" # all available interfaces
 port = 54345 # arbitrary port
+size = 1024
+backlog = 1
 
 
 def initializePins():
@@ -76,11 +78,6 @@ def testCommandViaWIFI(data, addr, vibration_motor):
 def main():
     initializePins()
 
-    #socket section
-    print('Establishing connection...')
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind(('', 54345)) # host and port number are defined above
-
     # setup PWM
     vibration_motor_1 = GPIO.PWM(pin_out_PWM, 260) # initialize with freq. 260 Hz (Near maximum)
     vibration_motor_1.start(0) # start vibration with 0% duty cycle (NO VIBRATION)
@@ -88,23 +85,37 @@ def main():
     print('')
     time.sleep(2)
 
-    while(True):
-        print('Loop is accessible...')
-        print('')
-        data, addr = sock.recvfrom(1024)
-        #testVibrationLevel(vibration_motor_1)
-	    if not data:
-            print('NO DATA')
-            print('')
-	    else:
-            print('Connected by : ', addr)
-            print('')
-        	testCommandViaWIFI(data, addr, vibration_motor1)
+    #socket section
+    print('Establish connection...')
+    print('')
+    sock = socket.socket(socket.AF_INET, socket.STREAM)
+    sock.bind((host, port)) # host and port number are defined above
+    sock.listen(backlog)
 
-    #clean up when program is end
-    #conn.close()
-    vibration_motor_1.stop()
-    GPIO.cleanup()
+    try:
+        print('Wating for connection...')
+        print('')
+        conn, addr = sock.accept()
+        print('Connected by : ', addr)
+        print('')
+
+        while(True):
+            # print('Loop is accessible...')
+            # print('')
+            data = conn.recv(size)
+            #testVibrationLevel(vibration_motor_1)
+            if data:
+                testCommandViaWIFI(data, addr, vibration_motor1)
+                
+    except:
+        print('closing socket...')
+        print('')
+
+        #clean up when program is end
+        conn.close()
+        socket.close()
+        vibration_motor_1.stop()
+        GPIO.cleanup()
     
 if __name__ == '__main__':
     main()
