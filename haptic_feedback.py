@@ -88,7 +88,7 @@ def main():
     #socket section
     print('Establish connection...')
     print('')
-    sock = socket.socket(socket.AF_INET, socket.STREAM)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind((host, port)) # host and port number are defined above
     sock.listen(backlog)
 
@@ -107,7 +107,7 @@ def main():
         print('')
         #testVibrationLevel(vibration_motor_1)
         # if data:
-        testCommandViaWIFI(data, addr, vibration_motor1)
+        testCommandViaWIFI(data, addr, vibration_motor_1)
                 
     #except:
     print('closing socket...')
