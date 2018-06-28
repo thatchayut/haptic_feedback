@@ -23,7 +23,7 @@ def initializePins():
     print('')
 
 
-# 3 modes of vibrations 
+# 4 modes of vibration
 # This motor limits at 16,000RPM (~266HZ)
 # Duty cycle : range 0 - 100 is allowed
 
