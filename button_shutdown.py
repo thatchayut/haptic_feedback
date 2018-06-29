@@ -13,10 +13,14 @@ def showInformation():
     print('Press the button 3 seconds to shut down...')
     print('')
 
-shutdown_btn = Button(17, hold_time=3) # pin number is in BCM && physical pin = 11
+def main():
+    shutdown_btn = Button(17, hold_time=3) # pin number is in BCM && physical pin = 11
 
-shutdown_btn.when_pressed = showInformation
+    shutdown_btn.when_pressed = showInformation
 
-shutdown_btn.when_held = shutdown 
+    shutdown_btn.when_held = shutdown 
 
-pause()
+    pause()
+
+if __name__ == '__main__':
+    main()
