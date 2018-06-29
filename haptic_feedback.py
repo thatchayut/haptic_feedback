@@ -4,8 +4,10 @@ import time
 import socket
 
 # define pins
-pin_out_BCM_4 = 7 # physical pin = 7
+pin_out_BCM_4 = 4 # physical pin = 7
 pin_out_PWM = 18 # BCM18 physical pin = 12
+pin_out_BCM_23 = 23 # BCM23 physical pin = 16 connected with RED LED
+pin_out_BCM_24 = 24 # BCM24 physical pin = 18 connected with GREEN LED
 
 # define host and port number
 host = "10.232.160.40" # Raspberrypi3 IP address
@@ -19,6 +21,8 @@ def initializePins():
     GPIO.setmode(GPIO.BCM)  # using BCM numbering
     GPIO.setup(pin_out_BCM_4, GPIO.OUT)
     GPIO.setup(pin_out_PWM, GPIO.OUT)
+    GPIO.setup(pin_out_BCM_23, GPIO.OUT)
+    GPIO.setup(pin_out_BCM_24, GPIO.OUT)
     print('')
     print('Pins are completely setup...')
     print('')
@@ -89,8 +93,11 @@ def commandVibrationViaWIFI(data, addr, vibration_motor):
         maxVibration(vibration_motor)
 
 
-def main():
+def main():  
     initializePins()
+
+    # the red LED shows that the device is ON
+    GPIO.output(pin_out_BCM_23, GPIO.HIGH)
 
     # setup PWM
     vibration_motor_1 = GPIO.PWM(pin_out_PWM, 260) # initialize with freq. 260 Hz (Near maximum)
@@ -111,6 +118,8 @@ def main():
     conn, addr = sock.accept()
     print('Connected by : ', addr)
     print('')
+    #The green LED shows that the connection is established
+    GPIO.output(pin_out_BCM_24, GPIO.HIGH)
 
     while(True):
         data = conn.recv(size)
@@ -126,6 +135,7 @@ def main():
     #clean up when program is end
     conn.close()
     socket.close()
+    GPIO.output(pin_out_BCM_24, GPIO.LOW)
     vibration_motor_1.stop()
     GPIO.cleanup()
     
