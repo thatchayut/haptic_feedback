@@ -4,18 +4,22 @@ from signal import pause
 import time
 
 def shutdown():
+    print('')
     print('The system is shutting down...')
+    print('')
     time.sleep(2)
     check_call(['sudo', 'poweroff'])
 
 def showInformation():
-    print('This device uses the safety shutdown...')
-    print('Press the button 3 seconds to shut down...')
+    print('This device allow using safety shutdown mode...')
     print('')
+    print('Press the button 3 seconds to shut down')
+    print('')
+
 
 shutdown_btn = Button(17, hold_time=3) # pin number is in BCM && physical pin = 11
 
-shutdown_btn.when_pressed = showInformation
+shutdown_btn.when_press = showInformation
 
 shutdown_btn.when_held = shutdown 
 
