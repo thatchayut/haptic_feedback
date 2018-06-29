@@ -8,7 +8,7 @@ pin_out_BCM_4 = 7 # physical pin = 7
 pin_out_PWM = 18 # BCM18 physical pin = 12
 
 # define host and port number
-host = "10.232.160.40" # all available interfaces
+host = "10.232.160.40" # Raspberrypi3 IP address
 port = 54345 # arbitrary port
 size = 1024
 backlog = 1
