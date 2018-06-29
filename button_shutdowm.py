@@ -10,7 +10,7 @@ def shutdown():
     time.sleep(2)
     check_call(['sudo', 'poweroff'])
 
-shutdown_btn = Button(17, hold_time=3)
+shutdown_btn = Button(27, hold_time=3) # pin number is in BCM && physical pin = 13
 shutdown_btn.when_held = shutdown
 
 pause()
