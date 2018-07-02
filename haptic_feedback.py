@@ -11,7 +11,7 @@ pin_out_BCM_24 = 24 # BCM24 physical pin = 18 connected with GREEN LED
 
 # define host and port number
 host = "10.232.160.40" # Raspberrypi3 IP address
-port = 54345 # arbitrary port
+port = 12345 # arbitrary port
 size = 1024
 backlog = 1
 
@@ -69,28 +69,33 @@ def testVibrationLevel(vibration_motor):
     time.sleep(2)
 
 def testCommandViaWIFI(data, addr, vibration_motor):
-    print('Loop is accessible...')
-    print('')
-    print('Received data: ')
-    print(data)
+   # print('Loop is accessible...')
+   # print('')
+   # print('Received data: ')
+   # print(data)
     print('')      
     if(data == "on"):
         maxVibration(vibration_motor)
+	print(data)
     elif(data == "off"):
         noVibration(vibration_motor)
+	print(data)
 
 def commandVibrationViaWIFI(data, addr, vibration_motor):
-    print('Loop is accessible...')
-    print('')
-    print('Received data: ')
-    print(data)
-    print('')      
+    #print('Loop is accessible...')
+    #print('')
+    #print('Received data: ')
+    #print(data)
+    #print('')      
     if(data == "min"):
         minVibration(vibration_motor)
+	print(data)
     elif(data == "med"):
-        medVibration(vibration_motor)    
+        medVibration(vibration_motor)
+	print(data)    
     elif(data == "max"):
         maxVibration(vibration_motor)
+	print(data)
 
 
 def main():  
