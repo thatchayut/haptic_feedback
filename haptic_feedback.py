@@ -117,7 +117,7 @@ def main():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # use TCP protocol 
     sock.bind((host, port)) # host and port number are defined above
     sock.listen(backlog)
-    #sock.settimeout(5) # 5 seconds
+    sock.settimeout(5) # 5 seconds
 
     #print('Wating for connection...')
     #print('')
@@ -144,6 +144,7 @@ def main():
 		print('Wating for connection...')
 		noVibration(vibration_motor_1)
 		GPIO.output(pin_out_BCM_24, GPIO.LOW)
+		
                 
     print('closing socket...')
     print('')
