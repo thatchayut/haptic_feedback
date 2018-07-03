@@ -117,9 +117,9 @@ def main():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # use TCP protocol 
     sock.bind((host, port)) # host and port number are defined above
     sock.listen(backlog)
-
+    #sock.settimeout(5) # 5 seconds
     print('Wating for connection...')
-    print('')
+    #print('')
     conn, addr = sock.accept()
     print('Connected by : ', addr)
     print('')
@@ -128,21 +128,27 @@ def main():
 
     while(True):
         data = conn.recv(size)
-        print(data)
-        print('')
-        #testVibrationLevel(vibration_motor_1)
-        #testCommandViaWIFI(data, addr, vibration_motor_1)
-        commandVibrationViaWIFI(data, addr, vibration_motor_1)
-                
+	if not data:
+		print('Disconnected...')
+    		GPIO.output(pin_out_BCM_24, GPIO.LOW)
+		noVibration(vibration_motor_1)
+		break
+        else:
+		print(data)
+        	print('')
+        	#testVibrationLevel(vibration_motor_1)
+        	#testCommandViaWIFI(data, addr, vibration_motor_1)
+        	commandVibrationViaWIFI(data, addr, vibration_motor_1)
     print('closing socket...')
     print('')
 
     #clean up when program is end
     conn.close()
-    socket.close()
-    GPIO.output(pin_out_BCM_24, GPIO.LOW)
-    vibration_motor_1.stop()
-    GPIO.cleanup()
+    #socket.close()
+    #GPIO.output(pin_out_BCM_24, GPIO.LOW)
+    #vibration_motor_1.stop()
+    #GPIO.output(pin_out_BCM_23, GPIO.LOW)
+    #GPIO.cleanup()
     
 if __name__ == '__main__':
     main()
