@@ -117,7 +117,7 @@ def main():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # use TCP protocol 
     sock.bind((host, port)) # host and port number are defined above
     sock.listen(backlog)
-    sock.settimeout(5) # 10 seconds
+    #sock.settimeout(5) # 5 seconds
 
     #print('Wating for connection...')
     #print('')
@@ -153,6 +153,7 @@ def main():
     socket.close()
     GPIO.output(pin_out_BCM_24, GPIO.LOW)
     vibration_motor_1.stop()
+    GPIO.output(pin_out_BCM_23, GPIO.LOW)
     GPIO.cleanup()
     
 if __name__ == '__main__':
