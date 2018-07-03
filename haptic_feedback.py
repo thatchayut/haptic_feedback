@@ -117,22 +117,33 @@ def main():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # use TCP protocol 
     sock.bind((host, port)) # host and port number are defined above
     sock.listen(backlog)
+    sock.settimeout(5) # 10 seconds
 
-    print('Wating for connection...')
-    print('')
-    conn, addr = sock.accept()
-    print('Connected by : ', addr)
-    print('')
+    #print('Wating for connection...')
+    #print('')
+    #conn, addr = sock.accept()
+    #print('Connected by : ', addr)
+    #print('')
     #The green LED shows that the connection is established
-    GPIO.output(pin_out_BCM_24, GPIO.HIGH)
+    #GPIO.output(pin_out_BCM_24, GPIO.HIGH)
 
     while(True):
-        data = conn.recv(size)
-        print(data)
-        print('')
-        #testVibrationLevel(vibration_motor_1)
-        #testCommandViaWIFI(data, addr, vibration_motor_1)
-        commandVibrationViaWIFI(data, addr, vibration_motor_1)
+	try:
+		#sock.connect((host, port))
+		conn, addr = sock.accept()
+		print('Connected by: ', addr)
+		GPIO.output(pin_out_BCM_24, GPIO.HIGH)
+        	data = conn.recv(size)
+        	print(data)
+        	print('')
+        	#testVibrationLevel(vibration_motor_1)
+        	#testCommandViaWIFI(data, addr, vibration_motor_1)
+        	commandVibrationViaWIFI(data, addr, vibration_motor_1)
+	except socket.error, message:
+		print("Caught exception socket.error: %s" % message)
+		print('Wating for connection...')
+		noVibration(vibration_motor_1)
+		GPIO.output(pin_out_BCM_24, GPIO.LOW)
                 
     print('closing socket...')
     print('')
