@@ -2,12 +2,14 @@ import RPi.GPIO as GPIO
 #import RPi.GPIO.PWM as PWM
 import time
 import socket
+import urllib2
 
 # define pins
 pin_out_BCM_4 = 4 # physical pin = 7
 pin_out_PWM = 18 # BCM18 physical pin = 12
 pin_out_BCM_23 = 23 # BCM23 physical pin = 16 connected with RED LED
 pin_out_BCM_24 = 24 # BCM24 physical pin = 18 connected with GREEN LED
+pin_out_BCM_27 = 27 # BCM27 physical pin = 13 connected with WHITE LED
 
 # define host and port number
 host = "10.232.160.40" # Raspberrypi3 IP address
@@ -23,6 +25,7 @@ def initializePins():
     GPIO.setup(pin_out_PWM, GPIO.OUT)
     GPIO.setup(pin_out_BCM_23, GPIO.OUT)
     GPIO.setup(pin_out_BCM_24, GPIO.OUT)
+    GPIO.setup(pin_out_BCM_27, GPIO.OUT)
     print('')
     print('Pins are completely setup...')
     print('')
@@ -98,11 +101,41 @@ def commandVibrationViaWIFI(data, addr, vibration_motor):
 	print(data)
 
 
+def checkNetworkConnection(LED_pin):
+	print("Checking for internet connection...")
+	while True:
+		blinkLED(LED_pin)
+		try:
+			urllib2.urlopen("http://www.google.com").close()
+		except urllib2.URLError:
+			print("Status: No internet connection")
+			time.sleep(1)
+		else:
+			print("Status: Connected")
+			turnOnLED(LED_pin)
+			break
+
+def turnOnLED(LED_pin):
+	GPIO.output(LED_pin, GPIO.HIGH)
+
+def turnOffLED(LED_pin):
+	GPIO.output(LED_pin, GPIO.LOW)
+
+def blinkLED(LED_pin):
+	GPIO.output(LED_pin, GPIO.HIGH)
+	time.sleep(0.2)
+	GPIO.output(LED_pin, GPIO.LOW)
+	time.sleep(0.2)
+
 def main():  
     initializePins()
 
     # the red LED shows that the device is ON
-    GPIO.output(pin_out_BCM_23, GPIO.HIGH)
+    #GPIO.output(pin_out_BCM_23, GPIO.HIGH)
+    turnOffLED(pin_out_BCM_23)
+    turnOffLED(pin_out_BCM_24)
+    turnOffLED(pin_out_BCM_27)
+    turnOnLED(pin_out_BCM_23)
 
     # setup PWM
     vibration_motor_1 = GPIO.PWM(pin_out_PWM, 260) # initialize with freq. 260 Hz (Near maximum)
@@ -111,7 +144,10 @@ def main():
     print('')
     time.sleep(2)
 
-    #socket section
+    # checking for internet connection
+    checkNetworkConnection(pin_out_BCM_27)
+
+    # socket section
     print('Establish connection...')
     print('')
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # use TCP protocol 
@@ -124,13 +160,15 @@ def main():
     print('Connected by : ', addr)
     print('')
     #The green LED shows that the connection is established
-    GPIO.output(pin_out_BCM_24, GPIO.HIGH)
+    #GPIO.output(pin_out_BCM_24, GPIO.HIGH)
+    turnOnLED(pin_out_BCM_24)
 
     while(True):
         data = conn.recv(size)
 	if not data:
 		print('Disconnected...')
-    		GPIO.output(pin_out_BCM_24, GPIO.LOW)
+    		#GPIO.output(pin_out_BCM_24, GPIO.LOW)
+		turnOffLED(pin_out_BCM_24)
 		noVibration(vibration_motor_1)
 		break
         else:
