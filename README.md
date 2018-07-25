@@ -1,4 +1,5 @@
-#Haptic Feedback Device for a Realistic Experience of Grinder Accidents
+Haptic Feedback Device for a Realistic Experience of Grinder Accidents
+
 This repository consists of 2 main parts.
 
 1. haptic_feedback.py
